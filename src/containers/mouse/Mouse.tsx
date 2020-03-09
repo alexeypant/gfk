@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useDrag } from 'react-dnd';
 import { EItemTypes } from '../../constants/EItemTypes';
-import { StyledDiv } from './Cockroach.style';
+import { StyledDiv } from './Mouse.style';
 import { easeElastic } from 'd3-ease';
 import { Animate } from 'react-move';
 import { useTime } from '../../hooks/useTime';
 import { IChipModel } from '../../interfaces/IChipModel';
 
-export const Cockroach = ({ uuid, xStart, yStart, movingFn, content }: IChipModel) => {
+export const Mouse = ({ uuid, xStart, yStart, movingFn, content }: IChipModel) => {
   const [{isDragging}, drag] = useDrag({
     item: {
       type: EItemTypes.cockroach,
@@ -44,7 +44,7 @@ export const Cockroach = ({ uuid, xStart, yStart, movingFn, content }: IChipMode
                   height: 30,
                   borderRadius: 50,
                   opacity: isDragging ? 0 : 1,
-                  backgroundColor: '#ff69b4',
+                  backgroundColor: 'grey',
                   left: `${x}%`,
                   bottom: `${y}%`,
                 }}

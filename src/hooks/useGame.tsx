@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { IChip } from '../interfaces/IChip';
-import { Cockroach } from '../containers/cockroach/Cockroach';
 import { getNextPosition } from '../utils/getNextPosition';
 import { getDirection } from '../utils/getDirection';
 import { IDroppedItem } from '../interfaces/IDroppableItem';
@@ -9,16 +8,16 @@ import { Bank } from '../containers/bank/Bank';
 import { IMultiplicationTask } from '../interfaces/IMultiplicationTask';
 
 export type TUseGame = [IChip[], IBank[]];
-export const useGame = (fieldWidth: number, fieldHeight: number, tasks: IMultiplicationTask[]): TUseGame => {
+export const useGame = (fieldWidth: number, fieldHeight: number, tasks: IMultiplicationTask[], ChipName: any): TUseGame => {
 
   const [chips, setChips] = useState<Array<IChip>>(() => tasks.map((task, index) => ({
     uuid: task.answer,
-    model: (<Cockroach
+    model: (<ChipName
         key={task.answer}
         uuid={task.answer}
         xStart={50}
         yStart={50}
-        movingFn={(x, y) => getNextPosition(x, y, getDirection(index), fieldWidth!, fieldHeight!, task.answer)}
+        movingFn={(x: number, y: number) => getNextPosition(x, y, getDirection(index), fieldWidth!, fieldHeight!, task.answer)}
         content={task.answer}
     />)
   })));
@@ -39,7 +38,14 @@ export const useGame = (fieldWidth: number, fieldHeight: number, tasks: IMultipl
     uuid: task.answer,
     isFull: false,
     model: (<Bank key={task.answer} onDrop={handleDrop} uuid={task.answer}><span>{task.equation}</span></Bank>),
-    modelFull: (<Bank key={task.answer} onDrop={handleDrop} uuid={`${task.answer}`}><span>Yes</span></Bank>),
+    modelFull: (<Bank key={task.answer} onDrop={handleDrop} uuid={`${task.answer}`}><ChipName
+        key={task.answer}
+        uuid={task.answer}
+        xStart={30}
+        yStart={30}
+        movingFn={(x: number, y: number) => getNextPosition(x, y, getDirection(1), fieldWidth!/tasks.length, fieldHeight!/5, task.answer)}
+        content={task.answer}
+    /></Bank>),
   })));
 
   return [chips, banks];

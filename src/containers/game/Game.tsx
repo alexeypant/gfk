@@ -4,6 +4,7 @@ import { Shelter } from '../shelter/Shelter';
 import { useGame } from '../../hooks/useGame';
 import { IMultiplicationTask } from '../../interfaces/IMultiplicationTask';
 import { generateMultiplicationTasks } from '../../utils/generateMultiplicationTasks';
+import { Mouse } from '../mouse/Mouse';
 
 const tasks: IMultiplicationTask[] = generateMultiplicationTasks(6, 4);
 
@@ -12,8 +13,10 @@ export interface IGameProps {
   fieldHeight: number;
 }
 
+const ChipModel: any = Mouse;
+
 export const Game = ({fieldWidth, fieldHeight}: IGameProps) => {
-  const [chips, banks] = useGame(fieldWidth, fieldHeight, tasks);
+  const [chips, banks] = useGame(fieldWidth, fieldHeight, tasks, ChipModel);
   return (
       <div style={{height: '100%', width: '100%' }}>
         <Field >
