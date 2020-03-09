@@ -52,8 +52,8 @@ export const Cockroach = ({ uuid, xStart, yStart, movingFn, content }: ICockroac
                   borderRadius: 50,
                   opacity: isDragging ? 0 : 1,
                   backgroundColor: '#ff69b4',
-                  left: x,
-                  bottom: y,
+                  left: `${x}%`,
+                  bottom: `${y}%`,
                 }}
                 onMouseEnter={() => setIsHover(true)}
                 onMouseLeave={() => setIsHover(false)}

@@ -7,6 +7,6 @@ export interface IShelterProps {
 
 export const Shelter = ({ children}: IShelterProps) => {
   return <StyledShelter>
-    {children?.map(child => <StyledShelterItem>{child}</StyledShelterItem>)}
+    {children?.map((child, index) => <StyledShelterItem key={index}>{child}</StyledShelterItem>)}
   </StyledShelter>
 };

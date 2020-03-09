@@ -16,9 +16,9 @@ export const useGame = (fieldWidth: number, fieldHeight: number, tasks: IMultipl
     model: (<Cockroach
         key={task.answer}
         uuid={task.answer}
-        xStart={fieldWidth/2}
-        yStart={fieldHeight/2}
-        movingFn={(x, y) => getNextPosition(x, y, getDirection(index), fieldWidth!, fieldHeight!)}
+        xStart={50}
+        yStart={50}
+        movingFn={(x, y) => getNextPosition(x, y, getDirection(index), fieldWidth!, fieldHeight!, task.answer)}
         content={task.answer}
     />)
   })));
@@ -38,8 +38,8 @@ export const useGame = (fieldWidth: number, fieldHeight: number, tasks: IMultipl
   const [banks, setBanks] = useState<Array<IBank>>(() => tasks.map((task) => ({
     uuid: task.answer,
     isFull: false,
-    model: (<Bank onDrop={handleDrop} uuid={task.answer}><span>{task.equation}</span></Bank>),
-    modelFull: (<Bank onDrop={handleDrop} uuid={`${task.answer}`}><span>Yes</span></Bank>),
+    model: (<Bank key={task.answer} onDrop={handleDrop} uuid={task.answer}><span>{task.equation}</span></Bank>),
+    modelFull: (<Bank key={task.answer} onDrop={handleDrop} uuid={`${task.answer}`}><span>Yes</span></Bank>),
   })));
 
   return [chips, banks];

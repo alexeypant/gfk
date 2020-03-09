@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-export const useTime = (refreshCycle = 200) => {
+export const useTime = (refreshCycle = 300) => {
   // Returns the current time
   // and queues re-renders every `refreshCycle` milliseconds (default: 100ms)
 

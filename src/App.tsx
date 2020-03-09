@@ -27,7 +27,6 @@ function App() {
               </Playground>
             </Content>
           </DndProvider>
-          <Footer/>
         </Layout>
       </Layout>
     </div>
