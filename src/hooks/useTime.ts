@@ -1,0 +1,36 @@
+import { useEffect, useState } from 'react';
+
+export const useTime = (refreshCycle = 200) => {
+  // Returns the current time
+  // and queues re-renders every `refreshCycle` milliseconds (default: 100ms)
+
+  const [now, setNow] = useState(getTime());
+
+  useEffect(() => {
+    // Regularly set time in state
+    // (this will cause your component to re-render frequently)
+    const intervalId = setInterval(
+        () => setNow(getTime()),
+        refreshCycle,
+    );
+
+    // Cleanup interval
+    return () => clearInterval(intervalId);
+
+    // Specify dependencies for useEffect
+  },        [refreshCycle, setInterval, clearInterval, setNow, getTime]);
+
+  return now;
+};
+
+
+export const getTime = () => {
+  // You can also use moment: https://momentjs.com
+  // return moment();
+
+  // Or just use native Date objects (in general, not a good move)
+  return new Date();
+
+  // Or just use unix epoch timestamps (integers, no timezones)
+  // return (new Date()).getTime();
+};

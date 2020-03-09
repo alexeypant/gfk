@@ -1,24 +1,35 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useRef } from 'react';
 import './App.css';
+import { Layout } from 'antd';
+import Backend from 'react-dnd-html5-backend';
+import { DndProvider } from 'react-dnd';
+import { useSize } from 'react-hook-size/dist';
+import { Playground } from './containers/playground/Playground';
+import { Game } from './containers/game/Game';
+
+const { Header, Footer, Sider, Content } = Layout;
+
 
 function App() {
+  let referenceToField = useRef();
+  let { width: fieldWidth, height: fieldHeight } = useSize(referenceToField);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Layout style={{ minHeight: '100vh' }}>
+        <Sider theme="light">Sider</Sider>
+        <Layout>
+          <Header>Header</Header>
+          <DndProvider backend={Backend}>
+            <Content>
+              <Playground refToElement={referenceToField}>
+                {fieldWidth && fieldHeight ? <Game fieldHeight={fieldHeight} fieldWidth={fieldWidth} /> : undefined}
+              </Playground>
+            </Content>
+          </DndProvider>
+          <Footer/>
+        </Layout>
+      </Layout>
     </div>
   );
 }
