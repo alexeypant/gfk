@@ -39,12 +39,7 @@ export const Cockroach = ({ uuid, xStart, yStart, movingFn, content }: IChipMode
             <StyledDiv
                 ref={drag}
                 style={{
-                  position: 'absolute',
-                  width: 30,
-                  height: 30,
-                  borderRadius: 50,
                   opacity: isDragging ? 0 : 1,
-                  backgroundColor: '#ff69b4',
                   left: `${x}%`,
                   bottom: `${y}%`,
                 }}

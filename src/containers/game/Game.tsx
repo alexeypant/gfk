@@ -4,7 +4,7 @@ import { Shelter } from '../shelter/Shelter';
 import { useGame } from '../../hooks/useGame';
 import { IMultiplicationTask } from '../../interfaces/IMultiplicationTask';
 import { generateMultiplicationTasks } from '../../utils/generateMultiplicationTasks';
-import { Mouse } from '../mouse/Mouse';
+import { Cockroach } from '../cockroach/Cockroach';
 
 const tasks: IMultiplicationTask[] = generateMultiplicationTasks(6, 4);
 
@@ -13,7 +13,7 @@ export interface IGameProps {
   fieldHeight: number;
 }
 
-const ChipModel: any = Mouse;
+const ChipModel: any = Cockroach;
 
 export const Game = ({fieldWidth, fieldHeight}: IGameProps) => {
   const [chips, banks] = useGame(fieldWidth, fieldHeight, tasks, ChipModel);
