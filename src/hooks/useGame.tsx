@@ -6,11 +6,17 @@ import { IDroppedItem } from '../interfaces/IDroppableItem';
 import { IBank } from '../interfaces/IBank';
 import { Bank } from '../containers/bank/Bank';
 import { IMultiplicationTask } from '../interfaces/IMultiplicationTask';
+import { generateMultiplicationTasks } from '../utils/generateMultiplicationTasks';
 
-export type TUseGame = [IChip[], IBank[]];
-export const useGame = (fieldWidth: number, fieldHeight: number, tasks: IMultiplicationTask[], ChipName: any): TUseGame => {
+export interface IUseGame {
+  chips: IChip[];
+  banks: IBank[];
+  updateGame: (base: number) => void;
+}
 
-  const [chips, setChips] = useState<Array<IChip>>(() => tasks.map((task, index) => ({
+export const useGame = (fieldWidth: number, fieldHeight: number, base: number, ChipName: any): IUseGame => {
+
+  const generateChips = (tasks: IMultiplicationTask[]) => tasks.map((task, index) => ({
     uuid: task.answer,
     model: (<ChipName
         key={task.answer}
@@ -20,7 +26,21 @@ export const useGame = (fieldWidth: number, fieldHeight: number, tasks: IMultipl
         movingFn={(x: number, y: number) => getNextPosition(x, y, getDirection(index), fieldWidth!, fieldHeight!, task.answer)}
         content={task.answer}
     />)
-  })));
+  }));
+
+  const generateBanks = (tasks: IMultiplicationTask[]) => tasks.map((task) => ({
+    uuid: task.answer,
+    isFull: false,
+    model: (<Bank key={task.answer} onDrop={handleDrop} uuid={task.answer}><span>{task.equation}</span></Bank>),
+    modelFull: (<Bank key={task.answer} onDrop={handleDrop} uuid={`${task.answer}`}><ChipName
+        key={task.answer}
+        uuid={task.answer}
+        xStart={30}
+        yStart={30}
+        movingFn={(x: number, y: number) => getNextPosition(x, y, getDirection(1), fieldWidth!/tasks.length, fieldHeight!/5, task.answer)}
+        content={task.answer}
+    /></Bank>),
+  }));
 
   const handleDrop = (item: IDroppedItem, bankUuid: string) => {
     const isCorrectBank = item.uuid === bankUuid;
@@ -34,19 +54,19 @@ export const useGame = (fieldWidth: number, fieldHeight: number, tasks: IMultipl
     }
   };
 
-  const [banks, setBanks] = useState<Array<IBank>>(() => tasks.map((task) => ({
-    uuid: task.answer,
-    isFull: false,
-    model: (<Bank key={task.answer} onDrop={handleDrop} uuid={task.answer}><span>{task.equation}</span></Bank>),
-    modelFull: (<Bank key={task.answer} onDrop={handleDrop} uuid={`${task.answer}`}><ChipName
-        key={task.answer}
-        uuid={task.answer}
-        xStart={30}
-        yStart={30}
-        movingFn={(x: number, y: number) => getNextPosition(x, y, getDirection(1), fieldWidth!/tasks.length, fieldHeight!/5, task.answer)}
-        content={task.answer}
-    /></Bank>),
-  })));
 
-  return [chips, banks];
+  const [tasks, setTasks] = useState<IMultiplicationTask[]>(() => generateMultiplicationTasks(base, 4));
+  const [chips, setChips] = useState<Array<IChip>>(() => generateChips(tasks));
+  const updateChips = (tasks: IMultiplicationTask[]) => setChips(() => generateChips(tasks));
+  const [banks, setBanks] = useState<Array<IBank>>(() => generateBanks(tasks));
+  const updateBanks = (tasks: IMultiplicationTask[]) => setBanks(() => generateBanks(tasks));
+
+  const updateGame = (base: number) => {
+    const newTasks = generateMultiplicationTasks(base, 4);
+    setTasks(newTasks);
+    updateChips(newTasks);
+    updateBanks(newTasks);
+  };
+
+  return { chips, banks, updateGame };
 };

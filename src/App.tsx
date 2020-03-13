@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import './App.css';
 import { Layout } from 'antd';
 import Backend from 'react-dnd-html5-backend';
@@ -6,24 +6,24 @@ import { DndProvider } from 'react-dnd';
 import { useSize } from 'react-hook-size/dist';
 import { Playground } from './containers/playground/Playground';
 import { Game } from './containers/game/Game';
+import { BaseSelector } from './containers/baseSelector/BaseSelector';
 
-const { Header, Footer, Sider, Content } = Layout;
+const { Sider, Content } = Layout;
 
-
-function App() {
+const App = () => {
   let referenceToField = useRef();
   let { width: fieldWidth, height: fieldHeight } = useSize(referenceToField);
+  const [base, setBase] = useState(1);
 
   return (
     <div className="App">
       <Layout style={{ minHeight: '100vh' }}>
-        <Sider theme="light">Sider</Sider>
+        <Sider theme="light"><BaseSelector setBase={setBase} /></Sider>
         <Layout>
-          <Header>Header</Header>
           <DndProvider backend={Backend}>
             <Content>
               <Playground refToElement={referenceToField}>
-                {fieldWidth && fieldHeight ? <Game fieldHeight={fieldHeight} fieldWidth={fieldWidth} /> : undefined}
+                {fieldWidth && fieldHeight ? <Game fieldHeight={fieldHeight} fieldWidth={fieldWidth} base={base} /> : undefined}
               </Playground>
             </Content>
           </DndProvider>
@@ -31,6 +31,6 @@ function App() {
       </Layout>
     </div>
   );
-}
+};
 
 export default App;
