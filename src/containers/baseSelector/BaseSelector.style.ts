@@ -11,7 +11,16 @@ export const StyledWrapper = styled.div`
 export const StyledBase = styled.div`
   flex: 1;
   display: flex;
-  align-items: center
+  flex-direction: column;
+  align-items: center;
+  border: 1px solid black;
+  background-color: orange;
+`;
+
+export const StyledBaseLabel = styled.div`
+  position: absolute;
+  right: 0;
+  top: 0;
 `;
 
 export const StyledButton = styled(Button)`

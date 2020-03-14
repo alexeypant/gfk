@@ -11,7 +11,7 @@ import { Cockroach } from '../cockroach/Cockroach';
 import { Shelter } from '../shelter/Shelter';
 import { Field } from '../field/Filed';
 
-const { Sider, Content, Footer } = Layout;
+const { Sider, Content } = Layout;
 
 export interface IMultiplicationGameProps {
   height: number;

@@ -32,8 +32,8 @@ export const useGame = (fieldWidth: number, fieldHeight: number, base: number, C
   const generateBanks = (tasks: IMultiplicationTask[]) => tasks.map((task) => ({
     uuid: task.answer,
     isFull: false,
-    model: (<Bank key={task.answer} onDrop={handleDrop} uuid={task.answer}><span>{task.equation}</span></Bank>),
-    modelFull: (<Bank key={task.answer} onDrop={handleDrop} uuid={`${task.answer}`}><ChipName
+    model: (<Bank key={task.answer} onDrop={handleDrop} uuid={task.answer} label={task.equation} />),
+    modelFull: (<Bank key={task.answer} onDrop={handleDrop} uuid={`${task.answer}`} label={task.equation}><ChipName
         key={task.answer}
         uuid={task.answer}
         xStart={30}

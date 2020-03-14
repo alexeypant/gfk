@@ -6,3 +6,7 @@ export const StyledBank = styled.div`
   height: 100%;
   border: solid 2px black;
 `;
+
+export const StyledLabel = styled.span`
+  font-size: 2em;
+`;
