@@ -7,6 +7,7 @@ import { IBank } from '../interfaces/IBank';
 import { Bank } from '../containers/bank/Bank';
 import { IMultiplicationTask } from '../interfaces/IMultiplicationTask';
 import { generateMultiplicationTasks } from '../utils/generateMultiplicationTasks';
+import { tasksCount } from '../constants/gameConfig';
 
 export interface IUseGame {
   chips: IChip[];
@@ -54,18 +55,15 @@ export const useGame = (fieldWidth: number, fieldHeight: number, base: number, C
     }
   };
 
-
-  const [tasks, setTasks] = useState<IMultiplicationTask[]>(() => generateMultiplicationTasks(base, 4));
+  const [tasks, setTasks] = useState<IMultiplicationTask[]>(() => generateMultiplicationTasks(base, tasksCount));
   const [chips, setChips] = useState<Array<IChip>>(() => generateChips(tasks));
-  const updateChips = (tasks: IMultiplicationTask[]) => setChips(() => generateChips(tasks));
   const [banks, setBanks] = useState<Array<IBank>>(() => generateBanks(tasks));
-  const updateBanks = (tasks: IMultiplicationTask[]) => setBanks(() => generateBanks(tasks));
 
   const updateGame = (base: number) => {
-    const newTasks = generateMultiplicationTasks(base, 4);
+    const newTasks = generateMultiplicationTasks(base, tasksCount);
     setTasks(newTasks);
-    updateChips(newTasks);
-    updateBanks(newTasks);
+    setChips(() => generateChips(newTasks));
+    setBanks(() => generateBanks(newTasks));
   };
 
   return { chips, banks, updateGame };

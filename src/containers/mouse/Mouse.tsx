@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDrag } from 'react-dnd';
-import { EItemTypes } from '../../constants/EItemTypes';
+import { EItemTypes } from '../../enums/EItemTypes';
 import { StyledDiv } from './Mouse.style';
 import { easeElastic } from 'd3-ease';
 import { Animate } from 'react-move';

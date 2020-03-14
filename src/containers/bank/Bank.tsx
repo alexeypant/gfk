@@ -1,6 +1,6 @@
 import React, { ReactNode } from 'react';
 import { useDrop } from 'react-dnd';
-import { EItemTypes } from '../../constants/EItemTypes';
+import { EItemTypes } from '../../enums/EItemTypes';
 import { StyledBank } from './Bank.style';
 
 export interface IBankProps {
