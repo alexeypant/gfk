@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const StyledShelter = styled.div`
   background: gold; 
-  height: 20%;
+  height: 100%;
   width: 100%;
   display: flex;
   flex-direction: row;
