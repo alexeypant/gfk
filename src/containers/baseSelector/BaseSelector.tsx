@@ -12,8 +12,8 @@ export const BaseSelector = () => {
     };
     return (
         <StyledWrapper>
-            {multiplicationBases.map(base =>
-                (<StyledBase>
+            {multiplicationBases.map((base) =>
+                (<StyledBase key={base}>
                     <StyledButton onClick={(e: React.MouseEvent<HTMLButtonElement>) => handleSelectBase(base, e)}>
                         {base}
                     </StyledButton>

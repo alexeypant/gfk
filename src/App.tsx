@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef } from 'react';
 import './App.css';
 import { Layout } from 'antd';
 import Backend from 'react-dnd-html5-backend';
@@ -11,6 +11,7 @@ import { Provider } from 'react-redux';
 import { combineReducers, createStore } from 'redux';
 import { rootReducer } from './redux/reducers/rootReducer';
 import { defaultState } from './redux/store/initialState';
+import { StyledLayout } from './App.style';
 
 const { Sider, Content } = Layout;
 
@@ -22,22 +23,20 @@ const App = () => {
   const store = createStore(reducer, defaultState);
 
   return (
-      <Provider store={store}>
-        <div className="App">
-          <Layout style={{ minHeight: '100vh' }}>
-            <Sider theme="light"><BaseSelector /></Sider>
-            <Layout>
-              <DndProvider backend={Backend}>
-                <Content>
-                  <Playground refToElement={referenceToField}>
-                    {fieldWidth && fieldHeight ? <Game fieldHeight={fieldHeight} fieldWidth={fieldWidth} /> : undefined}
-                  </Playground>
-                </Content>
-              </DndProvider>
-            </Layout>
-          </Layout>
-        </div>
-      </Provider>
+    <Provider store={store}>
+      <StyledLayout>
+        <Sider theme="light"><BaseSelector /></Sider>
+        <Layout>
+          <DndProvider backend={Backend}>
+            <Content>
+              <Playground refToElement={referenceToField}>
+                {fieldWidth && fieldHeight ? <Game fieldHeight={fieldHeight} fieldWidth={fieldWidth} /> : undefined}
+              </Playground>
+            </Content>
+          </DndProvider>
+        </Layout>
+      </StyledLayout>
+    </Provider>
   );
 };
 
