@@ -1,9 +1,11 @@
 import React from 'react';
-import { StyledBase, StyledBaseLabel, StyledWrapper } from './BaseSelector.style';
-import { useDispatch } from 'react-redux';
+import { StyledBase, StyledBaseLabel, StyledCompletion, StyledWrapper } from './BaseSelector.style';
+import { useDispatch, useSelector } from 'react-redux';
 import { setBase } from '../../redux/actions/actionMultiplication';
 import { multiplicationBases } from '../../constants/gameConfig';
 import { BugSmiling } from '../../components/bugSmiling/BugSmiling';
+import { IRootState } from '../../interfaces/IRootState';
+import { ICompletions } from '../../interfaces/ICompletions';
 
 export const BaseSelector = () => {
     const dispatch = useDispatch();
@@ -11,6 +13,7 @@ export const BaseSelector = () => {
         e.preventDefault();
         dispatch(setBase(base));
     };
+    const completions = useSelector<IRootState, ICompletions>(state => state.user.completionsCount);
     return (
         <StyledWrapper>
             {multiplicationBases.map((base) =>
@@ -19,6 +22,9 @@ export const BaseSelector = () => {
                         <StyledBaseLabel>
                             {base}
                         </StyledBaseLabel>
+                        <StyledCompletion>
+                            {completions[base]}
+                        </StyledCompletion>
                     </BugSmiling>
                 </StyledBase>))}
         </StyledWrapper>

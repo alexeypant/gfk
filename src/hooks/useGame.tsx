@@ -16,7 +16,13 @@ export interface IUseGame {
   updateGame: (base: number) => void;
 }
 
-export const useGame = (fieldWidth: number, fieldHeight: number, base: number, ChipName: any): IUseGame => {
+export const useGame = (
+    fieldWidth: number,
+    fieldHeight: number,
+    base: number,
+    ChipName: any,
+    onComplete: (base: number) => void,
+): IUseGame => {
 
   const generateChips = (tasks: IMultiplicationTask[]) => tasks.map((task, index) => ({
     uuid: task.answer,
@@ -44,7 +50,12 @@ export const useGame = (fieldWidth: number, fieldHeight: number, base: number, C
       setBanks(banks => {
         const affectedBank: IBank = banks.find(bank => bank.uuid === bankUuid)!;
         const updatedBank: IBank = { ...affectedBank!, isFull: true };
-        return banks.map(bank => bank.uuid === bankUuid ? updatedBank : bank);
+        const updatedBanks: IBank[] = banks.map(bank => bank.uuid === bankUuid ? updatedBank : bank);
+        const isCompletedTask: boolean = updatedBanks.filter(bank => !bank.isFull).length === 0;
+        if (isCompletedTask) {
+          onComplete(base);
+        }
+        return updatedBanks;
       });
     }
   };

@@ -4,12 +4,13 @@ import { Layout } from 'antd';
 import { DndProvider } from 'react-dnd';
 import Backend from 'react-dnd-html5-backend';
 import { StyledLayout } from './MultiplicationGame.style';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { IRootState } from '../../interfaces/IRootState';
 import { useGame } from '../../hooks/useGame';
 import { Cockroach } from '../cockroach/Cockroach';
 import { Shelter } from '../shelter/Shelter';
 import { Field } from '../field/Filed';
+import { setCompleted } from '../../redux/actions/actionUser';
 
 const { Sider, Content } = Layout;
 
@@ -25,7 +26,9 @@ export const MultiplicationGame = ({ width, height}: IMultiplicationGameProps) =
   const shelterHeight = height * 0.2;
 
   const base = useSelector<IRootState, number>(state => state.multiplication.base);
-  const { chips, banks, updateGame } = useGame(width, fieldHeight, base, ChipModel);
+  const dispatch = useDispatch();
+  const handleComplete = (base: number) => dispatch(setCompleted(base));
+  const { chips, banks, updateGame } = useGame(width, fieldHeight, base, ChipModel, handleComplete);
   useEffect(() => updateGame(base), [base]);
   return (
       <StyledLayout>

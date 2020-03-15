@@ -21,3 +21,9 @@ export const StyledBaseLabel = styled.div`
   right: 0;
   top: 0;
 `;
+
+export const StyledCompletion = styled.div`
+  position: absolute;
+  bottom: 0;
+  right: 0;
+`;
