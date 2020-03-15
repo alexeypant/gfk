@@ -5,7 +5,7 @@ import { StyledBank, StyledLabel } from './Bank.style';
 
 export interface IBankProps {
   uuid: string;
-  label: string;
+  label?: string;
   children?: ReactNode;
   onDrop: (item: any, bankUuid: string) => void;
 }

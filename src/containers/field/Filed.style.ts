@@ -7,7 +7,3 @@ export const StyledField = styled.div`
   position: relative;
 
 `;
-
-export const StyledChip = styled.div`
-  position: absolute;
-`;

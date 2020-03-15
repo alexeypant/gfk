@@ -8,6 +8,7 @@ import { Bank } from '../containers/bank/Bank';
 import { IMultiplicationTask } from '../interfaces/IMultiplicationTask';
 import { generateMultiplicationTasks } from '../utils/generateMultiplicationTasks';
 import { tasksCount } from '../constants/gameConfig';
+import { BugBasket } from '../components/bugBusket/BugBasket';
 
 export interface IUseGame {
   chips: IChip[];
@@ -32,15 +33,8 @@ export const useGame = (fieldWidth: number, fieldHeight: number, base: number, C
   const generateBanks = (tasks: IMultiplicationTask[]) => tasks.map((task) => ({
     uuid: task.answer,
     isFull: false,
-    model: (<Bank key={task.answer} onDrop={handleDrop} uuid={task.answer} label={task.equation} />),
-    modelFull: (<Bank key={task.answer} onDrop={handleDrop} uuid={`${task.answer}`} label={task.equation}><ChipName
-        key={task.answer}
-        uuid={task.answer}
-        xStart={30}
-        yStart={30}
-        movingFn={(x: number, y: number) => getNextPosition(x, y, getDirection(1), fieldWidth!/tasks.length, fieldHeight!/5, task.answer)}
-        content={task.answer}
-    /></Bank>),
+    model: (<Bank key={task.answer} onDrop={handleDrop} uuid={task.answer}><BugBasket label={task.equation} /></Bank>),
+    modelFull: (<Bank key={task.answer} onDrop={handleDrop} uuid={`${task.answer}`}><BugBasket label={task.equation} isFull /></Bank>),
   }));
 
   const handleDrop = (item: IDroppedItem, bankUuid: string) => {

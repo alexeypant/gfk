@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { Button } from 'antd';
 
 export const StyledWrapper = styled.div`
   width: 100%;
@@ -21,8 +20,4 @@ export const StyledBaseLabel = styled.div`
   position: absolute;
   right: 0;
   top: 0;
-`;
-
-export const StyledButton = styled(Button)`
-  flex: 1;
 `;
